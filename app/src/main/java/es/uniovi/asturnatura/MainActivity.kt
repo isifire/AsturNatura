@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        // Llamada a isOnline y mostrar en log
+
+        setContentView(R.layout.activity_main)  // <-- primero esto
+
         val online = isOnline()
         Log.d("MainActivity", "¿Conectado a Internet? $online")
 
@@ -30,15 +32,11 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.main, EspaciosFragment())
             .commit()
 
-
-        setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-
-
         }
-
     }
+
 }

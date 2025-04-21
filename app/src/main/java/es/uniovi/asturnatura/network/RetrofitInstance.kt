@@ -9,7 +9,7 @@ object RetrofitInstance {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://www.turismoasturiasprofesional.es/")
+            .baseUrl("http://orion.edv.uniovi.es/~arias/json/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
