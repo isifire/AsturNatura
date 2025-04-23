@@ -24,10 +24,12 @@ class EspaciosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerEspacios)
 
-        viewModel.espacios.observe(viewLifecycleOwner) {
-            recycler.adapter = EspaciosAdapter(it)
+        viewModel.espaciosLocales.observe(viewLifecycleOwner) {
+            recycler.adapter = EspaciosAdapter(it) // <- it es de tipo List<EspacioNaturalEntity>
         }
 
-        viewModel.cargarEspacios()
+
+        viewModel.cargarDatosInteligente(requireContext())
+
     }
 }

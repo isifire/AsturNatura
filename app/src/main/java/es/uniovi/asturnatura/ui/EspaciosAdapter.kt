@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.asturnatura.R
-import es.uniovi.asturnatura.model.EspacioNatural
+import es.uniovi.asturnatura.model.EspacioNaturalEntity
 
-class EspaciosAdapter(private val espacios: List<EspacioNatural>) :
+class EspaciosAdapter(private val espacios: List<EspacioNaturalEntity>) :
     RecyclerView.Adapter<EspaciosAdapter.EspacioViewHolder>() {
 
     class EspacioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,9 +25,9 @@ class EspaciosAdapter(private val espacios: List<EspacioNatural>) :
 
     override fun onBindViewHolder(holder: EspacioViewHolder, position: Int) {
         val item = espacios[position]
-        holder.tvNombre.text = item.nombre?.content ?: "Sin nombre"
-        holder.tvMunicipio.text = item.municipio?.content ?: "Municipio desconocido"
-        holder.tvTitulo.text = item.informacion?.titulo?.content ?: "Sin título"
+        holder.tvNombre.text = item.nombre
+        holder.tvMunicipio.text = item.ubicacion
+        holder.tvTitulo.text = item.descripcion
     }
 
     override fun getItemCount(): Int = espacios.size
