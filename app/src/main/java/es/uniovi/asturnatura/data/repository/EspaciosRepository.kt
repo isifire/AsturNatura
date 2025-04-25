@@ -2,11 +2,14 @@ package es.uniovi.asturnatura.data.repository
 
 import android.content.Context
 import android.text.Html
-import android.util.Log
 import androidx.room.Room
 import es.uniovi.asturnatura.data.AppDatabase
+import es.uniovi.asturnatura.model.EspacioNatural
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 import es.uniovi.asturnatura.network.RetrofitInstance
+import es.uniovi.asturnatura.util.JsonImage
+import es.uniovi.asturnatura.util.JsonImage.construirUrlImagen
+
 
 class EspaciosRepository(context: Context) {
 
@@ -22,17 +25,30 @@ class EspaciosRepository(context: Context) {
     suspend fun getEspaciosNaturales(forceRefresh: Boolean = false): List<EspacioNaturalEntity> {
         val local = dao.getAll()
         return if (local.isEmpty() || forceRefresh) {
-            val remote = RetrofitInstance.api.getEspaciosNaturales().articles.article.map {
-                val ubicacionHtml = it.informacion?.localizacion?.content
-                Log.d("Repo", "Localización bruta: $ubicacionHtml")
 
+            val remote = RetrofitInstance.api.getEspaciosNaturales().articles.article.map {
                 EspacioNaturalEntity(
                     id = it.nombre?.content ?: "sin-id-${System.currentTimeMillis()}",
                     nombre = it.nombre?.content ?: "Sin nombre",
-                    descripcion = it.informacion?.titulo?.content ?: "Sin descripción",
-                    ubicacion = limpiarHtml(ubicacionHtml).ifBlank { "Ubicación no disponible" },
+                    descripcion = limpiarHtml(it.informacion?.titulo?.content),
+                    ubicacion = limpiarHtml(it.informacion?.localizacion?.content),
                     tipo = "Espacio Natural",
-                    imagen = it.imagen?.content
+                    imagen = obtenerPrimeraImagenVisualizador(it),
+                    municipio = limpiarHtml(it.contacto?.concejo?.content),
+                    zona = limpiarHtml(it.contacto?.zona?.content),
+                    coordenadas = limpiarHtml(it.geolocalizacion?.coordenadas?.content),
+                    flora = limpiarHtml(it.informacion?.flora?.content),
+                    fauna = limpiarHtml(it.informacion?.fauna?.content),
+                    queVer = limpiarHtml(it.informacion?.queVer?.content),
+                    altitud = limpiarHtml(it.contacto?.altitudMaxima?.content),
+                    observaciones = limpiarHtml(it.observaciones?.observacion?.content),
+                    facebook = it.redesSociales?.facebook?.title,
+                    instagram = it.redesSociales?.instagram?.title,
+                    twitter = it.redesSociales?.twitter?.title,
+                    imagenes = it.visualizador?.slide
+                        ?.mapNotNull { slide -> JsonImage.construirUrlImagen(slide.value) }
+                        ?.joinToString("|") ?: ""
+
                 )
             }
             dao.insertAll(remote)
@@ -42,18 +58,15 @@ class EspaciosRepository(context: Context) {
         }
     }
 
-    // Buscar espacios por nombre (Room)
     suspend fun searchEspacios(query: String): List<EspacioNaturalEntity> {
-        return dao.searchByName(query)
+        return dao.searchByText(query)
     }
 
-    // Insertar lista de espacios en la base de datos
     suspend fun insertarEspacios(lista: List<EspacioNaturalEntity>) {
         dao.insertAll(lista)
     }
 }
 
-// Función para limpiar HTML, compatible con API 21+
 @Suppress("DEPRECATION")
 fun limpiarHtml(html: String?): String {
     return if (!html.isNullOrBlank()) {
@@ -62,3 +75,9 @@ fun limpiarHtml(html: String?): String {
         ""
     }
 }
+
+private fun obtenerPrimeraImagenVisualizador(espacio: EspacioNatural): String? {
+    val primeraSlideConImagen = espacio.visualizador?.slide?.firstOrNull { !it.value.isNullOrBlank() }
+    return primeraSlideConImagen?.value?.let { JsonImage.construirUrlImagen(it) }
+}
+

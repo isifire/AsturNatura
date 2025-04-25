@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.asturnatura.R
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 
-class EspaciosAdapter(private val espacios: List<EspacioNaturalEntity>) :
-    RecyclerView.Adapter<EspaciosAdapter.EspacioViewHolder>() {
+class EspaciosAdapter(
+    private val espacios: List<EspacioNaturalEntity>,
+    private val onItemClick: (EspacioNaturalEntity) -> Unit
+) : RecyclerView.Adapter<EspaciosAdapter.EspacioViewHolder>() {
 
     class EspacioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNombre: TextView = view.findViewById(R.id.tvNombre)
@@ -28,6 +30,10 @@ class EspaciosAdapter(private val espacios: List<EspacioNaturalEntity>) :
         holder.tvNombre.text = item.nombre
         holder.tvMunicipio.text = item.ubicacion
         holder.tvTitulo.text = item.descripcion
+
+        holder.itemView.setOnClickListener {
+            onItemClick(item)
+        }
     }
 
     override fun getItemCount(): Int = espacios.size

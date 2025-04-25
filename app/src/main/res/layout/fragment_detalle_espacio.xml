@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivDetalleImagen"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp" />
+
+
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/tvDetalleNombre"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Descripción -->
+        <TextView
+            android:text="Descripción:"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Ubicación -->
+        <TextView
+            android:text="Ubicación:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Municipio -->
+        <TextView
+            android:text="Municipio:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleMunicipio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Zona -->
+        <TextView
+            android:text="Zona:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Coordenadas -->
+        <TextView
+            android:text="Coordenadas:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleCoordenadas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Flora -->
+        <TextView
+            android:text="Flora:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleFlora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Fauna -->
+        <TextView
+            android:text="Fauna:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleFauna"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Qué ver -->
+        <TextView
+            android:text="Qué ver:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleQueVer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Altitud -->
+        <TextView
+            android:text="Altitud:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleAltitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Observaciones -->
+        <TextView
+            android:text="Observaciones:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvDetalleObservaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerImagenes"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"/>
+
+
+    </LinearLayout>
+</ScrollView>

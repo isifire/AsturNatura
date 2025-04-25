@@ -8,6 +8,8 @@ import es.uniovi.asturnatura.model.EspacioNatural
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 import es.uniovi.asturnatura.network.RetrofitInstance
 import es.uniovi.asturnatura.data.repository.EspaciosRepository
+import es.uniovi.asturnatura.model.ImagenInfo
+import es.uniovi.asturnatura.util.JsonImage
 import kotlinx.coroutines.launch
 
 class EspaciosViewModel(application: Application) : AndroidViewModel(application) {
@@ -53,9 +55,24 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
                     id = it.nombre?.content ?: "sin-id-${System.currentTimeMillis()}",
                     nombre = it.nombre?.content ?: "Sin nombre",
                     descripcion = it.informacion?.titulo?.content ?: "Sin descripción",
-                    ubicacion =  it.municipio?.content ?: "Ubicación no disponible",
+                    ubicacion = it.municipio?.content ?: "Ubicación no disponible",
                     tipo = "Espacio Natural", // Puedes cambiar esto si añades el campo
-                    imagen = it.imagen?.content
+                    imagen = it.imagen?.content?.value,
+                    municipio = it.municipio?.content ?: "Municipio no disponible",
+                    zona = it.contacto?.zona?.content ?: "Zona no disponible",
+                    coordenadas = it.geolocalizacion?.coordenadas?.content ?: "Coordenadas no disponibles",
+                    flora = it.informacion?.flora?.content,
+                    fauna = it.informacion?.fauna?.content,
+                    queVer = it.informacion?.queVer?.content,
+                    altitud = it.contacto?.altitudMaxima?.content,
+                    observaciones = it.observaciones?.observacion?.content,
+                    facebook = it.redesSociales?.facebook?.title,
+                    instagram = it.redesSociales?.instagram?.title,
+                    twitter = it.redesSociales?.twitter?.title,
+                    imagenes = it.visualizador?.slide
+                        ?.mapNotNull { slide -> JsonImage.construirUrlImagen(slide.value) }
+                        ?.joinToString("|") ?: ""
+
                 )
             }
             repo.insertarEspacios(entidades)
@@ -85,3 +102,5 @@ private fun isOnline(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     return connectivityManager.activeNetworkInfo?.isConnectedOrConnecting == true
 }
+
+

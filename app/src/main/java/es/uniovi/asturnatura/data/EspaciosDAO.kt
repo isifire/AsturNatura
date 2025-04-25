@@ -12,6 +12,17 @@ interface EspaciosDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(espacios: List<EspacioNaturalEntity>)
 
-    @Query("SELECT * FROM espacios_naturales WHERE nombre LIKE '%' || :query || '%'")
-    suspend fun searchByName(query: String): List<EspacioNaturalEntity>
+    @Query("""
+        SELECT * FROM espacios_naturales 
+        WHERE nombre LIKE '%' || :query || '%'
+           OR descripcion LIKE '%' || :query || '%'
+           OR ubicacion LIKE '%' || :query || '%'
+           OR municipio LIKE '%' || :query || '%'
+           OR zona LIKE '%' || :query || '%'
+           OR flora LIKE '%' || :query || '%'
+           OR fauna LIKE '%' || :query || '%'
+           OR queVer LIKE '%' || :query || '%'
+           OR observaciones LIKE '%' || :query || '%'
+    """)
+    suspend fun searchByText(query: String): List<EspacioNaturalEntity>
 }
