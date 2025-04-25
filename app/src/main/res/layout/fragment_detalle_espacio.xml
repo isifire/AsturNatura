@@ -1,157 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <!-- 🌄 Imagen Principal -->
         <ImageView
             android:id="@+id/ivDetalleImagen"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/darker_gray" />
 
-
-        <!-- Nombre -->
+        <!-- 🏷️ Nombre -->
         <TextView
             android:id="@+id/tvDetalleNombre"
-            android:textSize="26sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="#1A237E"
             android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_marginBottom="20dp" />
 
-        <!-- Descripción -->
-        <TextView
-            android:text="Descripción:"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        <!-- Ubicación -->
-        <TextView
-            android:text="Ubicación:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleUbicacion"
+        <!-- Bloques con visibilidad dinámica -->
+        <LinearLayout
+            android:id="@+id/layoutDescripcion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="📝 Descripción:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Municipio -->
-        <TextView
-            android:text="Municipio:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleMunicipio"
+        <LinearLayout
+            android:id="@+id/layoutUbicacion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="📍 Ubicación:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleUbicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Zona -->
-        <TextView
-            android:text="Zona:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleZona"
+        <LinearLayout
+            android:id="@+id/layoutMunicipio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🏘️ Municipio:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleMunicipio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Coordenadas -->
-        <TextView
-            android:text="Coordenadas:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleCoordenadas"
+        <LinearLayout
+            android:id="@+id/layoutZona"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🗺️ Zona:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleZona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Flora -->
-        <TextView
-            android:text="Flora:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleFlora"
+        <LinearLayout
+            android:id="@+id/layoutCoordenadas"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="📌 Coordenadas:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleCoordenadas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Fauna -->
-        <TextView
-            android:text="Fauna:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleFauna"
+        <LinearLayout
+            android:id="@+id/layoutFlora"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🌱 Flora:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleFlora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Qué ver -->
-        <TextView
-            android:text="Qué ver:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleQueVer"
+        <LinearLayout
+            android:id="@+id/layoutFauna"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🐾 Fauna:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleFauna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Altitud -->
-        <TextView
-            android:text="Altitud:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleAltitud"
+        <LinearLayout
+            android:id="@+id/layoutQueVer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🔍 Qué ver:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleQueVer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-        <!-- Observaciones -->
-        <TextView
-            android:text="Observaciones:"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tvDetalleObservaciones"
+        <LinearLayout
+            android:id="@+id/layoutAltitud"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🏔️ Altitud:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleAltitud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutObservaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="🗒️ Observaciones:"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvDetalleObservaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 🖼️ Galería -->
+        <TextView
+            android:text="🖼️ Galería"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#37474F" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPagerImagenes"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="20dp" />
+
+        <!-- 🎥 Video -->
+        <LinearLayout
+            android:id="@+id/layoutVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="▶️ Vídeo"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#37474F"
+                android:layout_marginBottom="8dp" />
+
+            <WebView
+                android:id="@+id/youtubeWebView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="32dp"
+                android:background="@android:color/darker_gray" />
+        </LinearLayout>
 
 
     </LinearLayout>

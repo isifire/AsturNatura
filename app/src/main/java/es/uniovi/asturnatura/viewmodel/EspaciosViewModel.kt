@@ -71,7 +71,10 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
                     twitter = it.redesSociales?.twitter?.title,
                     imagenes = it.visualizador?.slide
                         ?.mapNotNull { slide -> JsonImage.construirUrlImagen(slide.value) }
-                        ?.joinToString("|") ?: ""
+                        ?.joinToString("|") ?: "",
+
+                    youtubeUrl = it.video?.content
+
 
                 )
             }

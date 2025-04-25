@@ -11,3 +11,4 @@ data class ApiResponse(
 data class ArticleWrapper(
     val article: List<EspacioNatural>
 )
+

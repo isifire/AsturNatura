@@ -2,6 +2,7 @@ package es.uniovi.asturnatura.data.repository
 
 import android.content.Context
 import android.text.Html
+import android.util.Log
 import androidx.room.Room
 import es.uniovi.asturnatura.data.AppDatabase
 import es.uniovi.asturnatura.model.EspacioNatural
@@ -47,7 +48,10 @@ class EspaciosRepository(context: Context) {
                     twitter = it.redesSociales?.twitter?.title,
                     imagenes = it.visualizador?.slide
                         ?.mapNotNull { slide -> JsonImage.construirUrlImagen(slide.value) }
-                        ?.joinToString("|") ?: ""
+                        ?.joinToString("|") ?: "",
+                    youtubeUrl = obtenerUrlVideo(it)
+
+
 
                 )
             }
@@ -79,5 +83,15 @@ fun limpiarHtml(html: String?): String {
 private fun obtenerPrimeraImagenVisualizador(espacio: EspacioNatural): String? {
     val primeraSlideConImagen = espacio.visualizador?.slide?.firstOrNull { !it.value.isNullOrBlank() }
     return primeraSlideConImagen?.value?.let { JsonImage.construirUrlImagen(it) }
+}
+
+private fun obtenerUrlVideo(espacio: EspacioNatural): String? {
+    espacio.visualizador?.slide?.forEachIndexed { index, slide ->
+        Log.d("VideoDebug", "Slide[$index] SlideUrl: ${slide.slideUrl?.content}")
+    }
+
+    return espacio.visualizador?.slide
+        ?.firstOrNull { it.slideUrl?.content?.contains("youtube.com") == true }
+        ?.slideUrl?.content
 }
 

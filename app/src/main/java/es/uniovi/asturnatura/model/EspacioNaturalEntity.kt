@@ -10,9 +10,7 @@ data class EspacioNaturalEntity(
     val descripcion: String,
     val ubicacion: String,
     val tipo: String,
-    val imagen: String?, // Imagen principal (opcional)
-
-    // Campos adicionales
+    val imagen: String?,
     val municipio: String?,
     val zona: String?,
     val coordenadas: String?,
@@ -24,7 +22,7 @@ data class EspacioNaturalEntity(
     val facebook: String?,
     val instagram: String?,
     val twitter: String?,
-
-    // 🆕 Galería de imágenes (JSONs en cadena separados por |)
-    val imagenes: String?
+    val imagenes: String?,
+    val youtubeUrl: String? // <- AÑADIR ESTE CAMPO
 )
+

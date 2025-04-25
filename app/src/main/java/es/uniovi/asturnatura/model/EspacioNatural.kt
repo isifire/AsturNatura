@@ -30,7 +30,11 @@ data class EspacioNatural(
     val redesSociales: RedesSocialesContent?,
 
     @Json(name = "Visualizador")
-    val visualizador: VisualizadorContent?
+    val visualizador: VisualizadorContent?,
+
+    @Json(name = "Video")
+    val video: HtmlContent?
+
 )
 
 @JsonClass(generateAdapter = true)
@@ -102,6 +106,5 @@ data class ImagenContent(
 data class ImagenValue(
     val value: String?
 )
-
 
 

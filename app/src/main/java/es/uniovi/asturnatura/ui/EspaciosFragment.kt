@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.asturnatura.R
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
+import es.uniovi.asturnatura.util.JsonImage
 import es.uniovi.asturnatura.viewmodel.EspaciosViewModel
 
 class EspaciosFragment : Fragment() {
@@ -26,6 +27,11 @@ class EspaciosFragment : Fragment() {
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerEspacios)
         viewModel.espaciosLocales.observe(viewLifecycleOwner) { lista ->
             recycler.adapter = EspaciosAdapter(lista) { espacio ->
+                val youtubeUrl = espacio.imagenes
+                    ?.split("|")
+                    ?.mapNotNull { JsonImage.extraerUrlYoutube(it) }
+                    ?.firstOrNull() // Tomamos el primer video que sea válido
+
                 val fragment = DetalleEspacioFragment().apply {
                     arguments = Bundle().apply {
                         putString("nombre", espacio.nombre)
@@ -39,8 +45,9 @@ class EspaciosFragment : Fragment() {
                         putString("queVer", espacio.queVer)
                         putString("altitud", espacio.altitud)
                         putString("observaciones", espacio.observaciones)
-                        putString("imagen", espacio.imagen) // <--- solo aquí la pasamos
+                        putString("imagen", espacio.imagen)
                         putString("imagenes", espacio.imagenes)
+                        putString("youtubeUrl", espacio.youtubeUrl)
 
                     }
                 }
@@ -51,9 +58,6 @@ class EspaciosFragment : Fragment() {
                     .commit()
             }
         }
-
-
-
 
         viewModel.cargarDatosInteligente(requireContext())
     }

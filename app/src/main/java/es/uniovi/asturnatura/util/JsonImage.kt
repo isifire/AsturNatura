@@ -3,6 +3,7 @@ package es.uniovi.asturnatura.util
 import android.util.Log
 import com.squareup.moshi.Moshi
 import es.uniovi.asturnatura.model.ImagenInfo
+import org.json.JSONObject
 
 object JsonImage {
     fun construirUrlImagen(infoJson: String?): String? {
@@ -21,4 +22,15 @@ object JsonImage {
             null
         }
     }
+
+    fun extraerUrlYoutube(infoJson: String): String? {
+        return try {
+            val json = JSONObject(infoJson)
+            val url = json.optString("content", "")
+            if (url.contains("youtube.com")) url else null
+        } catch (e: Exception) {
+            null
+        }
+    }
+
 }
