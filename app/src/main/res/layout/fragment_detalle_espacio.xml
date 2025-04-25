@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:spacing="16dp"> <!-- Añadido espacio entre los elementos -->
 
         <!-- 🌄 Imagen Principal -->
         <ImageView
@@ -36,7 +37,8 @@
             android:id="@+id/layoutDescripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp"> <!-- Añadido margen inferior -->
             <TextView
                 android:text="📝 Descripción:"
                 android:layout_width="match_parent"
@@ -52,7 +54,8 @@
             android:id="@+id/layoutUbicacion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="📍 Ubicación:"
                 android:layout_width="match_parent"
@@ -68,7 +71,8 @@
             android:id="@+id/layoutMunicipio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🏘️ Municipio:"
                 android:layout_width="match_parent"
@@ -84,7 +88,8 @@
             android:id="@+id/layoutZona"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🗺️ Zona:"
                 android:layout_width="match_parent"
@@ -100,7 +105,8 @@
             android:id="@+id/layoutCoordenadas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="📌 Coordenadas:"
                 android:layout_width="match_parent"
@@ -116,7 +122,8 @@
             android:id="@+id/layoutFlora"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🌱 Flora:"
                 android:layout_width="match_parent"
@@ -132,7 +139,8 @@
             android:id="@+id/layoutFauna"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🐾 Fauna:"
                 android:layout_width="match_parent"
@@ -148,7 +156,8 @@
             android:id="@+id/layoutQueVer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🔍 Qué ver:"
                 android:layout_width="match_parent"
@@ -164,7 +173,8 @@
             android:id="@+id/layoutAltitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🏔️ Altitud:"
                 android:layout_width="match_parent"
@@ -180,7 +190,8 @@
             android:id="@+id/layoutObservaciones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
             <TextView
                 android:text="🗒️ Observaciones:"
                 android:layout_width="match_parent"
@@ -214,7 +225,8 @@
             android:id="@+id/layoutVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -232,7 +244,6 @@
                 android:layout_marginBottom="32dp"
                 android:background="@android:color/darker_gray" />
         </LinearLayout>
-
 
     </LinearLayout>
 </ScrollView>
