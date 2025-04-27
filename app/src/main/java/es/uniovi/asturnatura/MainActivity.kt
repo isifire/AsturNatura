@@ -21,22 +21,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
-        setContentView(R.layout.activity_main)  // <-- primero esto
+        setContentView(R.layout.activity_main)
 
         val online = isOnline()
         Log.d("MainActivity", "¿Conectado a Internet? $online")
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main, EspaciosFragment())
-            .commit()
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main, EspaciosFragment())
+                .commit()
         }
     }
+
+
+
 
 }
