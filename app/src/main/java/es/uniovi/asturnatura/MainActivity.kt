@@ -10,6 +10,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -17,6 +20,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.uniovi.asturnatura.viewmodel.EspaciosViewModel
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +29,11 @@ class MainActivity : AppCompatActivity() {
     private val filtrosActivos = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -41,15 +49,33 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
         val navController = findNavController(R.id.nav_host_fragment)
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavView.setupWithNavController(navController)
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.appBarLayout)) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(top = systemBars.top)
+            insets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavView) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavView) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(bottom = systemBars.bottom)
+            insets
+        }
+
+
+
         vm = ViewModelProvider(this)[EspaciosViewModel::class.java]
         navView.menu.setGroupCheckable(R.id.group_filters, true, false)
 
-        // Controlador del menú de filtros
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.filtro_playa -> toggleFiltro("Playa", menuItem)
@@ -66,12 +92,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             val cb = menuItem.actionView?.findViewById<CheckBox>(R.id.menu_item_checkbox)
-            if (cb != null) {
-                cb.isChecked = menuItem.isChecked
-            }
+            cb?.isChecked = menuItem.isChecked
 
             vm.actualizarFiltroCategorias(filtrosActivos)
-
             true
         }
     }

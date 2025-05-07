@@ -9,7 +9,7 @@
     <color name="colorSecondary">#FFB84D</color>        <!-- para botones, sliders, etc. -->
 
     <!-- Surfaces & backgrounds -->
-    <color name="colorBackground">#FFFFFF</color>       <!-- fondo general (light) -->
+    <color name="colorBackground">#F5F5F5</color> <!-- O el color que desees -->
     <color name="colorSurface">#FFFFFF</color>          <!-- superficies de tarjetas/panels -->
 
     <!-- On-colors (texto/iconos sobre cada background) -->
@@ -17,4 +17,13 @@
     <color name="colorOnSecondary">#000000</color>
     <color name="colorOnBackground">#000000</color>
     <color name="colorOnSurface">#000000</color>
+    <!-- Bottom Navigation -->
+    <color name="bottom_nav_icon_active">#FFFFFF</color>
+    <color name="bottom_nav_icon_inactive">#80FFFFFF</color> <!-- Blanco con transparencia -->
+    <color name="background">#000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
 </resources>

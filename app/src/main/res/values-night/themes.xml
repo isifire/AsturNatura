@@ -18,5 +18,6 @@
 
         <!-- Status‑bar noche -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+
     </style>
 </resources>

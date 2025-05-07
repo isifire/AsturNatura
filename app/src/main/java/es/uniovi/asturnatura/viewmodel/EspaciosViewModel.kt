@@ -6,8 +6,6 @@ import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.*
 import es.uniovi.asturnatura.data.repository.EspaciosRepository
-
-
 import es.uniovi.asturnatura.model.EspacioNatural
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 import es.uniovi.asturnatura.network.RetrofitInstance
@@ -18,23 +16,21 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
 
     private val repository = EspaciosRepository(application)
 
-
-
     private val _espaciosLocales = MutableLiveData<List<EspacioNaturalEntity>>()
     val espaciosLocales: LiveData<List<EspacioNaturalEntity>> get() = _espaciosLocales
 
     private val _espaciosRemotos = MutableLiveData<List<EspacioNatural>>()
     val espaciosRemotos: LiveData<List<EspacioNatural>> get() = _espaciosRemotos
 
-    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>()
+    private val espaciosOriginales = MutableLiveData<List<EspacioNaturalEntity>>() // conjunto completo
+    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>() // resultado de la búsqueda
     private val filtroTexto = MutableLiveData<String>()
-    private val filtroCategorias = MutableLiveData<Set<String>>()
+    private val filtroCategorias = MutableLiveData<Set<String>>(emptySet())
 
     private val espaciosFiltrados_ = MediatorLiveData<List<EspacioNaturalEntity>>()
     val espaciosFiltrados: LiveData<List<EspacioNaturalEntity>> get() = espaciosFiltrados_
 
     init {
-        filtroCategorias.value = emptySet()
         espaciosFiltrados_.addSource(allEspacios) { filtrarDatos() }
         espaciosFiltrados_.addSource(filtroTexto) { filtrarDatos() }
         espaciosFiltrados_.addSource(filtroCategorias) { filtrarDatos() }
@@ -54,12 +50,6 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
     fun cargarEspaciosLocales() {
         viewModelScope.launch {
             _espaciosLocales.value = repository.getEspaciosNaturales()
-        }
-    }
-
-    fun buscarEspaciosLocales(query: String) {
-        viewModelScope.launch {
-            _espaciosLocales.value = repository.searchEspacios(query)
         }
     }
 
@@ -108,6 +98,7 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             }
             Log.d("Debug", "Datos cargados: ${espacios.size}")
             _espaciosLocales.value = espacios
+            espaciosOriginales.value = espacios
             allEspacios.value = espacios
         }
     }
@@ -116,6 +107,22 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo?.isConnectedOrConnecting == true
+    }
+
+    fun actualizarTextoBusqueda(texto: String) {
+        viewModelScope.launch {
+            val resultado = if (texto.isNotBlank()) {
+                repository.searchEspacios(texto)
+            } else {
+                espaciosOriginales.value ?: repository.getEspaciosNaturales()
+            }
+            allEspacios.value = resultado
+            Log.d("Search", "Búsqueda ejecutada: ${resultado.size} resultados para '$texto'")
+        }
+    }
+
+    fun actualizarFiltroCategorias(nuevas: Set<String>) {
+        filtroCategorias.value = nuevas
     }
 
     private fun filtrarDatos() {
@@ -145,14 +152,6 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             "Río" -> Regex("río|rio", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             else -> true
         }
-    }
-
-    fun actualizarTextoBusqueda(texto: String) {
-        filtroTexto.value = texto
-    }
-
-    fun actualizarFiltroCategorias(nuevas: Set<String>) {
-        filtroCategorias.value = nuevas
     }
 
     fun getEspacioById(id: String): LiveData<EspacioNaturalEntity?> {
