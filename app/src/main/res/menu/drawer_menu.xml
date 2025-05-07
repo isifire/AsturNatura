@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/filtro_todo"
+            android:title="Todos" />
+        <item
+            android:id="@+id/filtro_playa"
+            android:title="Playa" />
+        <item
+            android:id="@+id/filtro_parque"
+            android:title="Parque" />
+        <item
+            android:id="@+id/filtro_area"
+            android:title="Área Recreativa" />
+        <item
+            android:id="@+id/filtro_picos"
+            android:title="Picos" />
+    </group>
+</menu>
