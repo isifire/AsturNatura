@@ -1,46 +1,43 @@
 package es.uniovi.asturnatura.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.fragment.findNavController
 import es.uniovi.asturnatura.R
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
-import es.uniovi.asturnatura.util.JsonImage
 import es.uniovi.asturnatura.viewmodel.EspaciosViewModel
-import es.uniovi.asturnatura.viewmodel.EspaciosViewModelFactory
 
 class EspaciosFragment : Fragment() {
 
+    private lateinit var adapter: EspaciosAdapter
     private lateinit var viewModel: EspaciosViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_espacios, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerEspacios)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
 
-        // Inicializar ViewModel con la Factory
-        val factory = EspaciosViewModelFactory(requireActivity().application)
-        viewModel = ViewModelProvider(this, factory)[EspaciosViewModel::class.java]
+        adapter = EspaciosAdapter { espacio ->
+            abrirDetalle(espacio)
+        }
+        recycler.adapter = adapter
 
-        // Observar espacios locales
-        viewModel.espaciosLocales.observe(viewLifecycleOwner) { lista ->
-            recycler.adapter = EspaciosAdapter(lista) { espacio ->
-                abrirDetalle(espacio)
-            }
+        // ❗ Compartido con MainActivity
+        viewModel = ViewModelProvider(requireActivity())[EspaciosViewModel::class.java]
+
+        viewModel.espaciosFiltrados.observe(viewLifecycleOwner) { lista ->
+            Log.d("Fragment", "RecyclerView recibido ${lista.size} elementos")
+            adapter.update(lista)
         }
 
-        // Cargar datos
         viewModel.cargarDatosInteligente(requireContext())
     }
 
@@ -62,13 +59,15 @@ class EspaciosFragment : Fragment() {
             putString("youtubeUrl", espacio.youtubeUrl)
         }
 
-        val detalleFragment = DetalleEspacioFragment().apply {
-            arguments = bundle
-        }
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.main, detalleFragment)
-            .addToBackStack(null)
-            .commit()
+        findNavController().navigate(
+            R.id.action_espaciosFragment_to_detalleEspacioFragment,
+            bundle
+        )
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_espacios, container, false)
 }

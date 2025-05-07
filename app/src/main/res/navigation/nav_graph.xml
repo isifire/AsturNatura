@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/espaciosFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="es.uniovi.asturnatura.ui.HomeFragment"
-        android:label="Inicio"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/espaciosFragment"
+        android:name="es.uniovi.asturnatura.ui.EspaciosFragment"
+        android:label="Espacios"
+        tools:layout="@layout/fragment_espacios">
+
+        <action
+            android:id="@+id/action_espaciosFragment_to_detalleEspacioFragment"
+            app:destination="@id/detalleEspacioFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleEspacioFragment"
+        android:name="es.uniovi.asturnatura.ui.DetalleEspacioFragment"
+        android:label="Detalle"
+        tools:layout="@layout/fragment_detalle_espacio" />
 </navigation>

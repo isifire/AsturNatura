@@ -1,5 +1,6 @@
 package es.uniovi.asturnatura.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,10 @@ import es.uniovi.asturnatura.R
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 
 class EspaciosAdapter(
-    private val espacios: List<EspacioNaturalEntity>,
     private val onItemClick: (EspacioNaturalEntity) -> Unit
 ) : RecyclerView.Adapter<EspaciosAdapter.EspacioViewHolder>() {
+
+    private val espacios = mutableListOf<EspacioNaturalEntity>()
 
     class EspacioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNombre: TextView = view.findViewById(R.id.tvNombre)
@@ -31,10 +33,16 @@ class EspaciosAdapter(
         holder.tvMunicipio.text = item.ubicacion
         holder.tvTitulo.text = item.descripcion
 
-        holder.itemView.setOnClickListener {
-            onItemClick(item)
-        }
+        holder.itemView.setOnClickListener { onItemClick(item) }
     }
 
     override fun getItemCount(): Int = espacios.size
+
+    fun update(nuevosEspacios: List<EspacioNaturalEntity>) {
+        Log.d("Adapter", "Actualizando con ${nuevosEspacios.size} elementos")
+        espacios.clear()
+        espacios.addAll(nuevosEspacios)
+        notifyDataSetChanged()
+    }
+
 }
