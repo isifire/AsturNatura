@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/espaciosFragment">
+    app:startDestination="@id/nav_espacios">
 
     <fragment
-        android:id="@+id/espaciosFragment"
+        android:id="@+id/nav_espacios"
         android:name="es.uniovi.asturnatura.ui.EspaciosFragment"
         android:label="Espacios"
         tools:layout="@layout/fragment_espacios">
 
         <action
-            android:id="@+id/action_espaciosFragment_to_detalleEspacioFragment"
+            android:id="@+id/action_nav_espacios_to_detalleEspacioFragment"
             app:destination="@id/detalleEspacioFragment" />
     </fragment>
 
@@ -21,4 +21,10 @@
         android:name="es.uniovi.asturnatura.ui.DetalleEspacioFragment"
         android:label="Detalle"
         tools:layout="@layout/fragment_detalle_espacio" />
+
+    <fragment
+        android:id="@+id/nav_mapa"
+        android:name="es.uniovi.asturnatura.ui.MapaFragment"
+        android:label="Mapa"
+        tools:layout="@layout/fragment_mapa" />
 </navigation>

@@ -42,7 +42,19 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.16")
+
+
+
+
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.preference.ktx)
+    implementation("com.github.MKergall:osmbonuspack:6.6.0")
+
+    implementation(libs.play.services.maps)
 
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")

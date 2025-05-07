@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_listado"
+        android:icon="@drawable/ic_list"
+    android:title="Listado" />
+    <item
+        android:id="@+id/nav_mapa"
+        android:icon="@drawable/ic_map"
+    android:title="Mapa" />
+</menu>

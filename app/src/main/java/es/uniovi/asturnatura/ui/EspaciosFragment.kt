@@ -30,9 +30,8 @@ class EspaciosFragment : Fragment() {
         }
         recycler.adapter = adapter
 
-        // ❗ Compartido con MainActivity
-        viewModel = ViewModelProvider(requireActivity())[EspaciosViewModel::class.java]
 
+        viewModel = ViewModelProvider(requireActivity())[EspaciosViewModel::class.java]
         viewModel.espaciosFiltrados.observe(viewLifecycleOwner) { lista ->
             Log.d("Fragment", "RecyclerView recibido ${lista.size} elementos")
             adapter.update(lista)
@@ -60,9 +59,10 @@ class EspaciosFragment : Fragment() {
         }
 
         findNavController().navigate(
-            R.id.action_espaciosFragment_to_detalleEspacioFragment,
+            R.id.action_nav_espacios_to_detalleEspacioFragment,
             bundle
         )
+
     }
 
     override fun onCreateView(

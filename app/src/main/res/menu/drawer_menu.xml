@@ -1,20 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/filtro_todo"
-            android:title="Todos" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">    <!-- ← añade app: -->
+
+    <group
+        android:id="@+id/group_filters"
+        android:checkableBehavior="all">                        <!-- all = multiparte -->
+
         <item
             android:id="@+id/filtro_playa"
-            android:title="Playa" />
+            android:title="Playa"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>    <!-- ← usa app:actionLayout -->
+
         <item
             android:id="@+id/filtro_parque"
-            android:title="Parque" />
+            android:title="Parque"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>
+
         <item
             android:id="@+id/filtro_area"
-            android:title="Área Recreativa" />
+            android:title="Área Recreativa"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>
+
         <item
             android:id="@+id/filtro_picos"
-            android:title="Picos" />
+            android:title="Picos"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>
+
+        <item
+            android:id="@+id/filtro_lago"
+            android:title="Lago"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>
+
+        <item
+            android:id="@+id/filtro_rio"
+            android:title="Río"
+            android:checkable="true"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>
+
+        <item
+            android:id="@+id/filtro_todo"
+            android:title="Quitar filtros"
+            app:actionLayout="@layout/nav_menu_item_checkbox"/>  <!-- opcional -->
     </group>
 </menu>

@@ -6,6 +6,8 @@ import android.net.ConnectivityManager
 import android.util.Log
 import androidx.lifecycle.*
 import es.uniovi.asturnatura.data.repository.EspaciosRepository
+
+
 import es.uniovi.asturnatura.model.EspacioNatural
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 import es.uniovi.asturnatura.network.RetrofitInstance
@@ -22,7 +24,20 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
     private val _espaciosRemotos = MutableLiveData<List<EspacioNatural>>()
     val espaciosRemotos: LiveData<List<EspacioNatural>> get() = _espaciosRemotos
 
-    /** Cargar espacios naturales desde la API (Remoto) */
+    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>()
+    private val filtroTexto = MutableLiveData<String>()
+    private val filtroCategorias = MutableLiveData<Set<String>>()
+
+    private val espaciosFiltrados_ = MediatorLiveData<List<EspacioNaturalEntity>>()
+    val espaciosFiltrados: LiveData<List<EspacioNaturalEntity>> get() = espaciosFiltrados_
+
+    init {
+        filtroCategorias.value = emptySet()
+        espaciosFiltrados_.addSource(allEspacios) { filtrarDatos() }
+        espaciosFiltrados_.addSource(filtroTexto) { filtrarDatos() }
+        espaciosFiltrados_.addSource(filtroCategorias) { filtrarDatos() }
+    }
+
     fun cargarEspaciosDesdeApi() {
         viewModelScope.launch {
             try {
@@ -34,21 +49,18 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    /** Cargar espacios naturales desde la base de datos local */
     fun cargarEspaciosLocales() {
         viewModelScope.launch {
             _espaciosLocales.value = repository.getEspaciosNaturales()
         }
     }
 
-    /** Buscar espacios en local */
     fun buscarEspaciosLocales(query: String) {
         viewModelScope.launch {
             _espaciosLocales.value = repository.searchEspacios(query)
         }
     }
 
-    /** Guardar espacios descargados en la base de datos local */
     fun guardarEspaciosLocalmente(lista: List<EspacioNatural>) {
         viewModelScope.launch {
             val entidades = lista.map { espacio ->
@@ -80,7 +92,6 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    /** Carga inteligente: primero local, si no hay, remoto */
     fun cargarDatosInteligente(context: Context) {
         viewModelScope.launch {
             var espacios = repository.getEspaciosNaturales()
@@ -93,56 +104,33 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
                     e.printStackTrace()
                 }
             }
-
-            Log.d("Debug", "Datos cargados: ${espacios.size}")  // ✅ Log añadido
+            Log.d("Debug", "Datos cargados: ${espacios.size}")
             _espaciosLocales.value = espacios
-            allEspacios.value = espacios  // Importante para activar los filtros
+            allEspacios.value = espacios
         }
     }
 
-
-    /** Comprobación rápida de conexión a Internet */
     private fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo?.isConnectedOrConnecting == true
     }
 
-    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>()
-    private val filtroTexto = MutableLiveData<String>()
-    private val filtroCategoria = MutableLiveData<String>()
-
-    private val espaciosFiltrados_ = MediatorLiveData<List<EspacioNaturalEntity>>()
-    val espaciosFiltrados: LiveData<List<EspacioNaturalEntity>> get() = espaciosFiltrados_
-
-    init {
-        espaciosFiltrados_.addSource(allEspacios) { filtrarDatos() }
-        espaciosFiltrados_.addSource(filtroTexto) { filtrarDatos() }
-        espaciosFiltrados_.addSource(filtroCategoria) { filtrarDatos() }
-    }
-
-
     private fun filtrarDatos() {
-        Log.d("Filtro", "filtrarDatos() invocado")  // ✅ Log añadido al inicio
-
         val texto = filtroTexto.value?.lowercase() ?: ""
-        val categoria = filtroCategoria.value ?: ""
+        val categorias = filtroCategorias.value ?: emptySet()
         val original = allEspacios.value ?: emptyList()
 
-        val resultado = original.filter {
-            (texto.isEmpty() || it.nombre?.lowercase()?.contains(texto) == true) &&
-                    (categoria.isEmpty() || categoriaMatches(it, categoria))
+        val resultado = original.filter { espacio ->
+            val nombre = espacio.nombre.lowercase()
+            val coincideTexto = texto.isEmpty() || nombre.contains(texto)
+            val coincideCategoria = categorias.isEmpty() || categorias.any { tipo -> categoriaMatches(espacio, tipo) }
+            coincideTexto && coincideCategoria
         }
 
-        Log.d("Filtro", "Filtrados: ${resultado.size} elementos con '$texto'")  // ✅ Resultado
+        Log.d("Filtro", "Filtrados: ${resultado.size} elementos con '$texto' y ${categorias.size} filtros")
         espaciosFiltrados_.value = resultado
     }
-
-
-
-
-
-
 
     private fun categoriaMatches(espacio: EspacioNaturalEntity, filtro: String): Boolean {
         val nombre = espacio.nombre.lowercase()
@@ -150,27 +138,18 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             "Playa" -> Regex("playa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             "Parque" -> Regex("parque", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             "Área Recreativa" -> Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "Picos" -> espacio.altitud != null
+            "Picos" -> !espacio.altitud.isNullOrBlank()
+            "Lago" -> Regex("lago", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+            "Río" -> Regex("río|rio", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             else -> true
         }
     }
 
     fun actualizarTextoBusqueda(texto: String) {
-        if (filtroTexto.value != texto) {
-            filtroTexto.value = texto
-            Log.d("Search", "Texto búsqueda: $texto")
-        } else {
-            // Fuerza notificación si el texto es igual (por ejemplo, borrar y volver a escribir vacío)
-            filtroTexto.postValue(texto)
-            Log.d("Search", "Texto búsqueda (forzado): $texto")
-        }
+        filtroTexto.value = texto
     }
 
-
-    fun actualizarFiltroCategoria(cat: String) {
-        filtroCategoria.value = cat
+    fun actualizarFiltroCategorias(nuevas: Set<String>) {
+        filtroCategorias.value = nuevas
     }
-
-
-
 }
