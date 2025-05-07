@@ -18,6 +18,8 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
 
     private val repository = EspaciosRepository(application)
 
+
+
     private val _espaciosLocales = MutableLiveData<List<EspacioNaturalEntity>>()
     val espaciosLocales: LiveData<List<EspacioNaturalEntity>> get() = _espaciosLocales
 
@@ -151,5 +153,12 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
 
     fun actualizarFiltroCategorias(nuevas: Set<String>) {
         filtroCategorias.value = nuevas
+    }
+
+    fun getEspacioById(id: String): LiveData<EspacioNaturalEntity?> {
+        return liveData {
+            val found = allEspacios.value?.firstOrNull { it.id == id }
+            emit(found)
+        }
     }
 }

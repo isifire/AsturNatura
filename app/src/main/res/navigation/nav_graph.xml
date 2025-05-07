@@ -20,11 +20,28 @@
         android:id="@+id/detalleEspacioFragment"
         android:name="es.uniovi.asturnatura.ui.DetalleEspacioFragment"
         android:label="Detalle"
-        tools:layout="@layout/fragment_detalle_espacio" />
+        tools:layout="@layout/fragment_detalle_espacio" >
+        <argument
+            android:name="espacioId"
+            app:argType="string" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/nav_mapa"
         android:name="es.uniovi.asturnatura.ui.MapaFragment"
         android:label="Mapa"
         tools:layout="@layout/fragment_mapa" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="es.uniovi.asturnatura.ui.SettingsFragment"
+        android:label="Ajustes"
+        tools:layout="@layout/fragment_settings" />
+
+    <action
+        android:id="@+id/action_nav_mapa_to_detalleEspacioFragment"
+        app:destination="@id/detalleEspacioFragment">
+        <argument android:name="espacioId" app:argType="long" />
+    </action>
 </navigation>

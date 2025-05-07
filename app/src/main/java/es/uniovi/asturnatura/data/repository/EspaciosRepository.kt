@@ -60,6 +60,12 @@ class EspaciosRepository(context: Context) {
         } else {
             local
         }
+
+
+    }
+
+    suspend fun getEspacioById(id: String): EspacioNaturalEntity? {
+        return dao.getById(id)
     }
 
     suspend fun searchEspacios(query: String): List<EspacioNaturalEntity> {
@@ -94,4 +100,6 @@ private fun obtenerUrlVideo(espacio: EspacioNatural): String? {
         ?.firstOrNull { it.slideUrl?.content?.contains("youtube.com") == true }
         ?.slideUrl?.content
 }
+
+
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand en modo noche -->
+    <color name="colorPrimary">#CC8400</color>
+    <color name="colorPrimaryDark">#995F00</color>
+    <color name="colorPrimaryVariant">#B36B00</color>
+
+    <!-- Accent puede quedar igual o algo más suave -->
+    <color name="colorSecondary">#FFB84D</color>
+
+    <!-- Surfaces & backgrounds noche -->
+    <color name="colorBackground">#121212</color>   <!-- muy oscuro -->
+    <color name="colorSurface">#1E1E1E</color>      <!-- paneles ligeramente más claros -->
+
+    <!-- On-colors para garantizar contraste -->
+    <color name="colorOnPrimary">#000000</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnBackground">#FFFFFF</color>
+    <color name="colorOnSurface">#FFFFFF</color>
+</resources>

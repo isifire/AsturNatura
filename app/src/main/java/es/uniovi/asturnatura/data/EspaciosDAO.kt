@@ -25,4 +25,8 @@ interface EspaciosDAO {
            OR observaciones LIKE '%' || :query || '%'
     """)
     suspend fun searchByText(query: String): List<EspacioNaturalEntity>
+
+
+    @Query("SELECT * FROM espacios_naturales WHERE id = :id LIMIT 1")
+    suspend fun getById(id: String): EspacioNaturalEntity?
 }
