@@ -8,7 +8,7 @@
         android:id="@+id/home_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido a AsturNatura"
+        android:text="@string/bienvenido"
         android:textSize="18sp"
         android:layout_gravity="center" />
 </FrameLayout>

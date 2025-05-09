@@ -17,7 +17,7 @@
             android:id="@+id/bubble_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título"
+            android:text="@string/bubble_title"
             android:textColor="#222222"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -29,7 +29,7 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:contentDescription="Cerrar"
+            android:contentDescription="@string/bubble_close_description"
             app:tint="#888888" />
     </RelativeLayout>
 
@@ -37,7 +37,7 @@
         android:id="@+id/bubble_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descripción"
+        android:text="@string/bubble_description"
         android:textColor="#555555"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
@@ -47,7 +47,7 @@
         android:id="@+id/bubble_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cómo llegar"
+        android:text="@string/bubble_button"
         android:textColor="#FFFFFF"
         android:backgroundTint="#4CAF50"
         android:padding="8dp"/>
@@ -56,5 +56,5 @@
         android:id="@+id/bubble_btn_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detalles"/>
+        android:text="@string/bubble_btn_details"/>
 </LinearLayout>

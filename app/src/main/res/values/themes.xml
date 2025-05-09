@@ -20,4 +20,7 @@
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
 
     </style>
+    <style name="Widget.Toolbar.Button" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:tint">@android:color/white</item>
+    </style>
 </resources>

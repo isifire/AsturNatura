@@ -43,7 +43,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📝 Descripción:" />
+                android:text="@string/detalle_descripcion"/>
 
             <TextView
                 android:id="@+id/tvDetalleDescripcion"
@@ -64,7 +64,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📍 Ubicación:" />
+                android:text="@string/detalle_ubicacion" />
 
             <TextView
                 android:id="@+id/tvDetalleUbicacion"
@@ -85,7 +85,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🏘️ Municipio:" />
+                android:text="@string/detalle_municipio" />
 
             <TextView
                 android:id="@+id/tvDetalleMunicipio"
@@ -106,7 +106,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🗺️ Zona:" />
+                android:text="@string/detalle_zona" />
 
             <TextView
                 android:id="@+id/tvDetalleZona"
@@ -127,7 +127,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="📌 Coordenadas:" />
+                android:text="@string/detalle_coordenadas" />
 
             <TextView
                 android:id="@+id/tvDetalleCoordenadas"
@@ -148,7 +148,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🌱 Flora:" />
+                android:text="@string/detalle_flora" />
 
             <TextView
                 android:id="@+id/tvDetalleFlora"
@@ -169,7 +169,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🐾 Fauna:" />
+                android:text="@string/detalle_fauna" />
 
             <TextView
                 android:id="@+id/tvDetalleFauna"
@@ -190,7 +190,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🔍 Qué ver:" />
+                android:text="@string/detalle_que_ver" />
 
             <TextView
                 android:id="@+id/tvDetalleQueVer"
@@ -211,7 +211,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🏔️ Altitud:" />
+                android:text="@string/detalle_altitud" />
 
             <TextView
                 android:id="@+id/tvDetalleAltitud"
@@ -232,7 +232,7 @@
                 style="@style/TextAppearance.MaterialComponents.Subtitle1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🗒️ Observaciones:" />
+                android:text="@string/detalle_observaciones" />
 
             <TextView
                 android:id="@+id/tvDetalleObservaciones"
@@ -246,7 +246,7 @@
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🖼️ Galería"
+            android:text="@string/detalle_galeria"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp" />
 
@@ -268,7 +268,7 @@
                 style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="▶️ Vídeo"
+                android:text="@string/detalle_video"
                 android:layout_marginBottom="8dp" />
 
             <WebView

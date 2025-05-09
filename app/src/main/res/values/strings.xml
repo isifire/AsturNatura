@@ -2,5 +2,43 @@
     <string name="app_name">AsturNatura</string>
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="bubble_title">Título</string>
+    <string name="bubble_description">Descripción</string>
+    <string name="bubble_button">Cómo llegar</string>
+    <string name="bubble_btn_details">Detalles</string>
+    <string name="bubble_close_description">Cerrar</string>
+    <string name="detalle_descripcion">📝 Descripción:</string>
+    <string name="detalle_ubicacion">📍 Ubicación:</string>
+    <string name="detalle_municipio">🏘️ Municipio:</string>
+    <string name="detalle_zona">🗺️ Zona:</string>
+    <string name="detalle_coordenadas">📌 Coordenadas:</string>
+    <string name="detalle_flora">🌱 Flora:</string>
+    <string name="detalle_fauna">🐾 Fauna:</string>
+    <string name="detalle_que_ver">🔍 Qué ver:</string>
+    <string name="detalle_altitud">🏔️ Altitud:</string>
+    <string name="detalle_observaciones">🗒️ Observaciones:</string>
+    <string name="detalle_galeria">🖼️ Galería</string>
+    <string name="detalle_video">▶️ Vídeo</string>
+    <string name="bienvenido">Bienvenido a AsturNatura</string>
+    <string name="modo_noche">Modo noche</string>
+    <string name="modo_idioma">Use English</string>
+    <string name="playa">Playa</string>
+    <string name="parque">Parque</string>
+    <string name="area_recreativa">Área recreativa</string>
+    <string name="picos">Picos</string>
+    <string name="lago">Lago</string>
+    <string name="rio">Río</string>
+    <string name="filtros">Quitar filtros</string>
+    <string name="aplicar_filtros">Aplicar</string>
+    <string name="limpiar_filtros">Limpiar</string>
+    <string name="titulo_filtros">Filtros</string>
+    <string name="abrir_menu">Abrir menú</string>
+    <string name="cerrar_menu">Cerrar menú</string>
+    <string name="buscar">Buscar</string>
+
+
+
+
+
 
 </resources>

@@ -1,27 +1,19 @@
 package es.uniovi.asturnatura
 
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.CheckBox
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.updatePadding
+import androidx.core.view.*
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import es.uniovi.asturnatura.viewmodel.EspaciosViewModel
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,86 +25,86 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         val navView = findViewById<NavigationView>(R.id.nav_view)
+        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        val headerView = navView.getHeaderView(0)
+        ViewCompat.setOnApplyWindowInsetsListener(headerView) { view, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(view.paddingLeft, topInset, view.paddingRight, view.paddingBottom)
+            insets
+        }
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationIcon(R.drawable.ic_menu)
+        toolbar.setNavigationOnClickListener {
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerClosed(drawerView: android.view.View) {
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        })
 
         val navController = findNavController(R.id.nav_host_fragment)
-        val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNavView.setupWithNavController(navController)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.appBarLayout)) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(top = systemBars.top)
+            view.updatePadding(top = insets.getInsets(WindowInsetsCompat.Type.systemBars()).top)
             insets
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavView) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(bottom = systemBars.bottom)
+            view.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
             insets
         }
-
-        ViewCompat.setOnApplyWindowInsetsListener(bottomNavView) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.updatePadding(bottom = systemBars.bottom)
-            insets
-        }
-
-
 
         vm = ViewModelProvider(this)[EspaciosViewModel::class.java]
         navView.menu.setGroupCheckable(R.id.group_filters, true, false)
 
         navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.filtro_playa -> toggleFiltro("Playa", menuItem)
-                R.id.filtro_parque -> toggleFiltro("Parque", menuItem)
-                R.id.filtro_area -> toggleFiltro("Área Recreativa", menuItem)
-                R.id.filtro_picos -> toggleFiltro("Picos", menuItem)
-                R.id.filtro_lago -> toggleFiltro("Lago", menuItem)
-                R.id.filtro_rio -> toggleFiltro("Río", menuItem)
-                R.id.filtro_todo -> {
+                R.id.btn_aplicar_filtros -> {
+                    vm.actualizarFiltroCategorias(filtrosActivos)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.btn_limpiar_filtros -> {
                     filtrosActivos.clear()
                     for (i in 0 until navView.menu.size()) {
-                        navView.menu.getItem(i).isChecked = false
+                        val item = navView.menu.getItem(i)
+                        if (item.groupId == R.id.group_filters) {
+                            item.isChecked = false
+                        }
                     }
+                    vm.actualizarFiltroCategorias(filtrosActivos)
+                    true
+                }
+                else -> {
+                    val nombre = menuItem.title.toString()
+                    menuItem.isChecked = !menuItem.isChecked
+                    if (menuItem.isChecked) {
+                        filtrosActivos.add(nombre)
+                    } else {
+                        filtrosActivos.remove(nombre)
+                    }
+                    false
                 }
             }
-            val cb = menuItem.actionView?.findViewById<CheckBox>(R.id.menu_item_checkbox)
-            cb?.isChecked = menuItem.isChecked
-
-            vm.actualizarFiltroCategorias(filtrosActivos)
-            true
-        }
-    }
-
-    private fun toggleFiltro(nombre: String, item: MenuItem) {
-        item.isChecked = !item.isChecked
-        if (item.isChecked) {
-            filtrosActivos.add(nombre)
-        } else {
-            filtrosActivos.remove(nombre)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
         val searchItem = menu?.findItem(R.id.action_search)
         val searchView = searchItem?.actionView as? SearchView
-
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
             override fun onQueryTextChange(newText: String?): Boolean {

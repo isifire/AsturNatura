@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AsturNatura</string>
+    <string name="navigation_drawer_open">Open menu</string>
+    <string name="navigation_drawer_close">Close menu</string>
+    <string name="bubble_title">Title</string>
+    <string name="bubble_description">Description</string>
+    <string name="bubble_button">Directions</string>
+    <string name="bubble_btn_details">Details</string>
+    <string name="bubble_close_description">Close</string>
+    <string name="detalle_descripcion">📝 Description:</string>
+    <string name="detalle_ubicacion">📍 Location:</string>
+    <string name="detalle_municipio">🏘️ Municipality:</string>
+    <string name="detalle_zona">🗺️ Area:</string>
+    <string name="detalle_coordenadas">📌 Coordinates:</string>
+    <string name="detalle_flora">🌱 Flora:</string>
+    <string name="detalle_fauna">🐾 Fauna:</string>
+    <string name="detalle_que_ver">🔍 What to see:</string>
+    <string name="detalle_altitud">🏔️ Altitude:</string>
+    <string name="detalle_observaciones">🗒️ Notes:</string>
+    <string name="detalle_galeria">🖼️ Gallery</string>
+    <string name="detalle_video">▶️ Video</string>
+    <string name="bienvenido">Welcome to AsturNatura</string>
+    <string name="modo_noche">Night mode</string>
+    <string name="modo_idioma">Use Spanish</string>
+    <string name="playa">Beach</string>
+    <string name="parque">Park</string>
+    <string name="area_recreativa">Recreational area</string>
+    <string name="picos">Mountains</string>
+    <string name="lago">Lake</string>
+    <string name="rio">River</string>
+    <string name="filtros">Remove filters</string>
+    <string name="aplicar_filtros">Apply</string>
+    <string name="limpiar_filtros">Clear</string>
+    <string name="titulo_filtros">Filters</string>
+    <string name="abrir_menu">Open menu</string>
+    <string name="cerrar_menu">Close menu</string>
+    <string name="buscar">Search</string>
+
+
+
+
+
+
+
+</resources>
