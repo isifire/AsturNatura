@@ -161,3 +161,14 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         }
     }
 }
+
+
+private val _usarMapaOscuro = MutableLiveData<Boolean>()
+val usarMapaOscuro: LiveData<Boolean> = _usarMapaOscuro
+
+fun cargarPreferencias(context: Context) {
+    val nightMode = android.preference.PreferenceManager
+        .getDefaultSharedPreferences(context)
+        .getBoolean("night_mode", false)
+    _usarMapaOscuro.value = nightMode
+}

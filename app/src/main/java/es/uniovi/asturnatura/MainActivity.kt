@@ -1,5 +1,6 @@
 package es.uniovi.asturnatura
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,11 +15,20 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import es.uniovi.asturnatura.viewmodel.EspaciosViewModel
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var vm: EspaciosViewModel
     private val filtrosActivos = mutableSetOf<String>()
+
+    // Se aplica el idioma guardado ANTES de crear vistas
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
+        val lang = prefs.getString("idioma", "es") ?: "es" // Idioma por defecto: español
+        val context = newBase.setLocale(lang)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -30,16 +40,10 @@ class MainActivity : AppCompatActivity() {
         val navView = findViewById<NavigationView>(R.id.nav_view)
         val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
-        val headerView = navView.getHeaderView(0)
-        ViewCompat.setOnApplyWindowInsetsListener(headerView) { view, insets ->
-            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
-            view.setPadding(view.paddingLeft, topInset, view.paddingRight, view.paddingBottom)
-            insets
-        }
-
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationIcon(R.drawable.ic_menu)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu) // Icono cambia automáticamente por tema
+
         toolbar.setNavigationOnClickListener {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             drawerLayout.openDrawer(GravityCompat.START)
@@ -62,6 +66,13 @@ class MainActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(bottomNavView) { view, insets ->
             view.updatePadding(bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
+            insets
+        }
+
+        val headerView = navView.getHeaderView(0)
+        ViewCompat.setOnApplyWindowInsetsListener(headerView) { view, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(view.paddingLeft, topInset, view.paddingRight, view.paddingBottom)
             insets
         }
 
@@ -113,5 +124,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
         return true
+    }
+
+    // Función de extensión para aplicar el idioma
+    fun Context.setLocale(language: String): Context {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        val config = resources.configuration
+        config.setLocale(locale)
+        config.setLayoutDirection(locale)
+
+        return createConfigurationContext(config)
     }
 }

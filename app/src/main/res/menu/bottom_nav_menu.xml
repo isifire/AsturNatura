@@ -3,14 +3,15 @@
     <item
         android:id="@+id/nav_espacios"
         android:icon="@drawable/ic_nature"
-        android:title="Espacios" />
+        android:title="@string/espacios" />
+
     <item
         android:id="@+id/nav_mapa"
         android:icon="@drawable/ic_map"
-        android:title="Mapa" />
+        android:title="@string/mapa" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Ajustes" />
+        android:title="@string/ajustes" />
 </menu>

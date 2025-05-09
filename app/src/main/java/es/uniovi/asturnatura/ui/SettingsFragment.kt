@@ -1,61 +1,64 @@
 package es.uniovi.asturnatura.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.switchmaterial.SwitchMaterial
 import es.uniovi.asturnatura.R
+import es.uniovi.asturnatura.viewmodel.SettingsViewModel
 
 class SettingsFragment : Fragment() {
+
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
+    ): View = inflater.inflate(R.layout.fragment_settings, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val switchNight: SwitchMaterial = view.findViewById(R.id.switchNightMode)
         val switchLanguage: SwitchMaterial = view.findViewById(R.id.switchLanguage)
 
-        // Modo noche
-        val currentMode = AppCompatDelegate.getDefaultNightMode()
-        switchNight.isChecked = (currentMode == AppCompatDelegate.MODE_NIGHT_YES)
+        var ignoreNightChange = false
+        var ignoreLanguageChange = false
+
+        viewModel.isNightMode.observe(viewLifecycleOwner) {
+            if (switchNight.isChecked != it) {
+                ignoreNightChange = true
+                switchNight.isChecked = it
+                ignoreNightChange = false
+            }
+        }
+
+        viewModel.isEnglish.observe(viewLifecycleOwner) {
+            if (switchLanguage.isChecked != it) {
+                ignoreLanguageChange = true
+                switchLanguage.isChecked = it
+                ignoreLanguageChange = false
+            }
+        }
 
         switchNight.setOnCheckedChangeListener { _, isChecked ->
-            val mode = if (isChecked)
-                AppCompatDelegate.MODE_NIGHT_YES
-            else
-                AppCompatDelegate.MODE_NIGHT_NO
-
-            AppCompatDelegate.setDefaultNightMode(mode)
+            if (!ignoreNightChange) {
+                viewModel.toggleNightMode(isChecked)
+            }
         }
-
-        // Modo idioma
-        val prefs = requireContext().getSharedPreferences("settings", 0)
-        val idioma = prefs.getString("idioma", "es")
-        switchLanguage.isChecked = (idioma == "en")
 
         switchLanguage.setOnCheckedChangeListener { _, isChecked ->
-            val nuevoIdioma = if (isChecked) "en" else "es"
-            prefs.edit().putString("idioma", nuevoIdioma).apply()
-
-            val locale = java.util.Locale(nuevoIdioma)
-            java.util.Locale.setDefault(locale)
-            val config = resources.configuration
-            config.setLocale(locale)
-            requireActivity().baseContext.resources.updateConfiguration(
-                config,
-                requireActivity().baseContext.resources.displayMetrics
-            )
-
-            // Reinicia la actividad para aplicar el idioma
-            requireActivity().recreate()
+            if (!ignoreLanguageChange) {
+                val haCambiado = viewModel.toggleLanguage(isChecked)
+                if (haCambiado) {
+                    view?.post {
+                        if (isAdded && activity != null) {
+                            requireActivity().recreate()
+                        }
+                    }
+                }
+            }
         }
     }
-
 }

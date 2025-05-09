@@ -56,11 +56,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="@color/colorPrimary"
-                app:itemIconTint="@color/bottom_nav_icon_color"
-                app:itemTextColor="@color/bottom_nav_icon_color"
                 app:menu="@menu/bottom_nav_menu"
-                app:labelVisibilityMode="unlabeled" />
+                app:itemIconTint="@null"
+                app:itemTextColor="@color/bottom_nav_icon_color" />
+
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
