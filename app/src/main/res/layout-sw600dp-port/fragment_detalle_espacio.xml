@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?android:attr/windowBackground"
+    android:padding="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivDetalleImagen"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="24dp"
+            android:background="?attr/colorSurface" />
+
+        <TextView
+            android:id="@+id/tvDetalleNombre"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Secciones reutilizables -->
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutDescripcion" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutMunicipio" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutZona" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutCoordenadas" android:layout_marginBottom="24dp" />
+
+        <!-- Mapa -->
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapaDetalle"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/colorSurface" />
+
+        <Button
+            android:id="@+id/btnComoLlegar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bubble_button"
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:drawableStart="@drawable/ic_nature"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="32dp" />
+
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutFlora" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutFauna" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutQueVer" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutAltitud" android:layout_marginBottom="24dp" />
+        <include layout="@layout/view_section_texto" android:id="@+id/layoutObservaciones" android:layout_marginBottom="32dp" />
+
+        <TextView
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/detalle_galeria"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerImagenes"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="32dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp">
+
+            <TextView
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detalle_video"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <WebView
+                android:id="@+id/youtubeWebView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="?attr/colorSurface" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

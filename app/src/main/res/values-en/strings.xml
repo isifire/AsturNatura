@@ -22,7 +22,7 @@
     <string name="detalle_video">▶️ Video</string>
     <string name="bienvenido">Welcome to AsturNatura</string>
     <string name="modo_noche">Night mode</string>
-    <string name="modo_idioma">Use Spanish</string>
+    <string name="modo_idioma">Switch Language</string>
     <string name="playa">Beach</string>
     <string name="parque">Park</string>
     <string name="area_recreativa">Recreational area</string>
@@ -39,6 +39,11 @@
     <string name="espacios">Spaces</string>
     <string name="mapa">Map</string>
     <string name="ajustes">Settings</string>
+    <string name="favoritos">Favorites</string>
+    <string name="acerca_de">About</string>
+    <string name="no_hay_favoritos">You have not saved any spaces as favorites yet.</string>
+
+
 
 
 

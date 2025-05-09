@@ -1,29 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand -->
+    <!-- Marca -->
     <color name="colorPrimary">#FFA500</color>          <!-- naranja vivo -->
     <color name="colorPrimaryDark">#CC8400</color>      <!-- naranja oscuro -->
-    <color name="colorPrimaryVariant">#E69500</color>   <!-- variante intermedia -->
+    <color name="colorPrimaryVariant">#E69500</color>
 
-    <!-- Accent -->
-    <color name="colorSecondary">#FFB84D</color>        <!-- para botones, sliders, etc. -->
+    <!-- Secundario -->
+    <color name="colorSecondary">#FFC04D</color>        <!-- naranja más suave -->
 
-    <!-- Surfaces & backgrounds -->
-    <color name="colorBackground">#F5F5F5</color> <!-- O el color que desees -->
-    <color name="colorSurface">#FFFFFF</color>          <!-- superficies de tarjetas/panels -->
+    <!-- Fondo y superficies -->
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorSurface">#FFFFFF</color>
 
-    <!-- On-colors (texto/iconos sobre cada background) -->
+    <!-- On colors (texto/iconos) -->
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorOnSecondary">#000000</color>
     <color name="colorOnBackground">#000000</color>
     <color name="colorOnSurface">#000000</color>
-    <!-- Bottom Navigation -->
-    <color name="bottom_nav_icon_active">#FFFFFF</color>
-    <color name="bottom_nav_icon_inactive">#80FFFFFF</color> <!-- Blanco con transparencia -->
-    <color name="background">#000000</color>
 
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_icon_active">#FFA500</color>
+    <color name="bottom_nav_icon_inactive">#80FFA500</color>
+
+    <!-- Otros -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="colorOutline">#CCCCCC</color>
 
+    <!-- Material 3 -->
+    <color name="md_theme_light_primary">#FFA500</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_secondary">#FFC04D</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_surfaceVariant">#FFF3E0</color> <!-- ligeramente cálido -->
+    <color name="md_theme_light_onSurface">#212121</color>
+    <color name="md_theme_light_outline">#DDDDDD</color>
+
+    <color name="bubble_color_primary">#FFA500</color> <!-- Naranja -->
+    <color name="bubble_color_on_primary">#000000</color> <!-- Texto negro -->
+    <color name="bubble_surface">#FFFFFF</color> <!-- Fondo de la burbuja -->
+    <color name="bubble_on_surface">#222222</color> <!-- Texto general -->
 
 </resources>

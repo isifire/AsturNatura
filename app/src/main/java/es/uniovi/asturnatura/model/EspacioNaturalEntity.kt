@@ -23,6 +23,7 @@ data class EspacioNaturalEntity(
     val instagram: String?,
     val twitter: String?,
     val imagenes: String?,
-    val youtubeUrl: String? // <- AÑADIR ESTE CAMPO
+    val youtubeUrl: String?,
+    var esFavorito: Boolean = false
 )
 

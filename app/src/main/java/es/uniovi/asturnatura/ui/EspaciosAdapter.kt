@@ -1,24 +1,25 @@
 package es.uniovi.asturnatura.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.uniovi.asturnatura.R
 import es.uniovi.asturnatura.model.EspacioNaturalEntity
 
 class EspaciosAdapter(
-    private val onItemClick: (EspacioNaturalEntity) -> Unit
+    private var espacios: List<EspacioNaturalEntity>,
+    private val onItemClick: (EspacioNaturalEntity) -> Unit,
+    private val onToggleFavorito: (EspacioNaturalEntity) -> Unit
 ) : RecyclerView.Adapter<EspaciosAdapter.EspacioViewHolder>() {
 
-    private val espacios = mutableListOf<EspacioNaturalEntity>()
-
-    class EspacioViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvNombre: TextView = view.findViewById(R.id.tvNombre)
-        val tvMunicipio: TextView = view.findViewById(R.id.tvMunicipio)
-        val tvTitulo: TextView = view.findViewById(R.id.tvTitulo)
+    inner class EspacioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvNombre: TextView = itemView.findViewById(R.id.tvNombre)
+        val tvMunicipio: TextView = itemView.findViewById(R.id.tvMunicipio)
+        val tvDescripcion: TextView = itemView.findViewById(R.id.tvDescripcion)
+        val btnFavorito: ImageButton = itemView.findViewById(R.id.btnFavorito)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EspacioViewHolder {
@@ -28,21 +29,24 @@ class EspaciosAdapter(
     }
 
     override fun onBindViewHolder(holder: EspacioViewHolder, position: Int) {
-        val item = espacios[position]
-        holder.tvNombre.text = item.nombre
-        holder.tvMunicipio.text = item.ubicacion
-        holder.tvTitulo.text = item.descripcion
+        val espacio = espacios[position]
 
-        holder.itemView.setOnClickListener { onItemClick(item) }
+        holder.tvNombre.text = espacio.nombre
+        holder.tvMunicipio.text = espacio.municipio ?: ""
+        holder.tvDescripcion.text = espacio.descripcion ?: "Descripción no disponible"
+
+        holder.btnFavorito.setImageResource(
+            if (espacio.esFavorito) R.drawable.ic_star else R.drawable.ic_star_border
+        )
+
+        holder.itemView.setOnClickListener { onItemClick(espacio) }
+        holder.btnFavorito.setOnClickListener { onToggleFavorito(espacio) }
     }
 
     override fun getItemCount(): Int = espacios.size
 
-    fun update(nuevosEspacios: List<EspacioNaturalEntity>) {
-        Log.d("Adapter", "Actualizando con ${nuevosEspacios.size} elementos")
-        espacios.clear()
-        espacios.addAll(nuevosEspacios)
+    fun actualizarLista(nuevaLista: List<EspacioNaturalEntity>) {
+        espacios = nuevaLista
         notifyDataSetChanged()
     }
-
 }

@@ -1,23 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand en modo noche -->
+    <!-- Marca -->
     <color name="colorPrimary">#CC8400</color>
     <color name="colorPrimaryDark">#995F00</color>
     <color name="colorPrimaryVariant">#B36B00</color>
 
-    <!-- Accent puede quedar igual o algo más suave -->
+    <!-- Secundario -->
     <color name="colorSecondary">#FFB84D</color>
 
-    <!-- Surfaces & backgrounds noche -->
-    <color name="colorBackground">#121212</color>   <!-- muy oscuro -->
-    <color name="colorSurface">#1E1E1E</color>      <!-- paneles ligeramente más claros -->
+    <!-- Fondo y superficies -->
+    <color name="colorBackground">#121212</color>
+    <color name="colorSurface">#1E1E1E</color>
 
-    <!-- On-colors para garantizar contraste -->
+    <!-- On colors (texto/iconos) -->
     <color name="colorOnPrimary">#000000</color>
     <color name="colorOnSecondary">#000000</color>
     <color name="colorOnBackground">#FFFFFF</color>
     <color name="colorOnSurface">#FFFFFF</color>
 
-    <color name="bottom_nav_icon_active">#000000</color>
-    <color name="bottom_nav_icon_inactive">#66000000</color>
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_icon_active">#FFA500</color>
+    <color name="bottom_nav_icon_inactive">#66FFA500</color>
+
+    <color name="colorOutline">#444444</color>
+
+    <!-- Material 3 -->
+    <color name="md_theme_dark_primary">#FFA500</color>
+    <color name="md_theme_dark_onPrimary">#000000</color>
+    <color name="md_theme_dark_secondary">#FFD180</color>
+    <color name="md_theme_dark_surface">#1E1E1E</color>
+    <color name="md_theme_dark_surfaceVariant">#2A2A2A</color>
+    <color name="md_theme_dark_onSurface">#FFFFFF</color>
+    <color name="md_theme_dark_outline">#666666</color>
+
+    <color name="bubble_color_primary">#FFA500</color> <!-- Naranja -->
+    <color name="bubble_color_on_primary">#000000</color> <!-- Texto negro sobre naranja -->
+    <color name="bubble_surface">#2B2B2B</color> <!-- Fondo gris oscuro -->
+    <color name="bubble_on_surface">#FFFFFF</color> <!-- Texto blanco -->
+
 </resources>

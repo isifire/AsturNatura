@@ -27,6 +27,8 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
     private val filtroTexto = MutableLiveData<String>()
     private val filtroCategorias = MutableLiveData<Set<String>>(emptySet())
 
+    private var textoBusquedaActual: String = ""
+
     private val espaciosFiltrados_ = MediatorLiveData<List<EspacioNaturalEntity>>()
     val espaciosFiltrados: LiveData<List<EspacioNaturalEntity>> get() = espaciosFiltrados_
 
@@ -110,6 +112,7 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun actualizarTextoBusqueda(texto: String) {
+        textoBusquedaActual = texto
         viewModelScope.launch {
             val resultado = if (texto.isNotBlank()) {
                 repository.searchEspacios(texto)
@@ -160,15 +163,25 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             emit(found)
         }
     }
-}
 
+    val favoritos = repository.favoritos
 
-private val _usarMapaOscuro = MutableLiveData<Boolean>()
-val usarMapaOscuro: LiveData<Boolean> = _usarMapaOscuro
+    fun toggleFavorito(espacio: EspacioNaturalEntity) {
+        viewModelScope.launch {
+            val nuevoValor = !espacio.esFavorito
+            espacio.esFavorito = nuevoValor
+            repository.actualizarFavorito(espacio.id, nuevoValor)
+            actualizarTextoBusqueda(textoBusquedaActual)
+        }
+    }
 
-fun cargarPreferencias(context: Context) {
-    val nightMode = android.preference.PreferenceManager
-        .getDefaultSharedPreferences(context)
-        .getBoolean("night_mode", false)
-    _usarMapaOscuro.value = nightMode
+    private val _usarMapaOscuro = MutableLiveData<Boolean>()
+    val usarMapaOscuro: LiveData<Boolean> = _usarMapaOscuro
+
+    fun cargarPreferencias(context: Context) {
+        val nightMode = android.preference.PreferenceManager
+            .getDefaultSharedPreferences(context)
+            .getBoolean("night_mode", false)
+        _usarMapaOscuro.value = nightMode
+    }
 }

@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bubble_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/info_window_background"
+    android:background="?attr/colorSurface"
     android:elevation="6dp"
     android:padding="12dp">
 
@@ -17,8 +16,7 @@
             android:id="@+id/bubble_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bubble_title"
-            android:textColor="#222222"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_alignParentStart="true" />
@@ -29,32 +27,39 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:contentDescription="@string/bubble_close_description"
-            app:tint="#888888" />
+            app:tint="?attr/colorOnSurface" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/bubble_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bubble_description"
-        android:textColor="#555555"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp" />
 
+    <!-- Botón "Cómo llegar" -->
     <Button
         android:id="@+id/bubble_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bubble_button"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#4CAF50"
-        android:padding="8dp"/>
+        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/bubble_btn_details"
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bubble_btn_details"/>
+        android:text="@string/bubble_btn_details" />
+
+
+    <ImageButton
+        android:id="@+id/bubble_fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_border"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:tint="?attr/colorOnSurface" />
 </LinearLayout>

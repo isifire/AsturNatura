@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
+
         val headerView = navView.getHeaderView(0)
         ViewCompat.setOnApplyWindowInsetsListener(headerView) { view, insets ->
             val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top

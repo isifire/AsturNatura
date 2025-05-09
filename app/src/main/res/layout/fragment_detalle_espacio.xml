@@ -4,278 +4,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/windowBackground"
-    android:fitsSystemWindows="true"
-    tools:theme="@style/Theme.AsturNatura">
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <!-- 🌄 Imagen Principal -->
+        <!-- Imagen principal -->
         <ImageView
             android:id="@+id/ivDetalleImagen"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:background="?attr/colorSurface" />
 
-        <!-- 🏷️ Nombre -->
+        <!-- Nombre -->
         <TextView
             android:id="@+id/tvDetalleNombre"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="20dp" />
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
 
-        <!-- 📝 Descripción -->
-        <LinearLayout
+        <!-- Secciones -->
+        <include
             android:id="@+id/layoutDescripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_descripcion"
+            tools:content="Bosques frondosos y valles tranquilos" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_descripcion"/>
-
-            <TextView
-                android:id="@+id/tvDetalleDescripcion"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 📍 Ubicación -->
-        <LinearLayout
-            android:id="@+id/layoutUbicacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_ubicacion" />
-
-            <TextView
-                android:id="@+id/tvDetalleUbicacion"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🏘️ Municipio -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutMunicipio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_municipio"
+            tools:content="Cangas de Onís" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_municipio" />
-
-            <TextView
-                android:id="@+id/tvDetalleMunicipio"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🗺️ Zona -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutZona"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_zona"
+            tools:content="Picos de Europa" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_zona" />
-
-            <TextView
-                android:id="@+id/tvDetalleZona"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 📌 Coordenadas -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutCoordenadas"
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_coordenadas"
+            tools:content="43.3142, -5.4311" />
+
+        <!-- 🗺️ Mapa -->
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapaDetalle"
             android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="?attr/colorSurface" />
+
+        <!-- 📍 Botón "Cómo llegar" -->
+        <Button
+            android:id="@+id/btnComoLlegar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            android:text="@string/bubble_button"
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:drawableStart="@drawable/ic_nature"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="24dp" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_coordenadas" />
-
-            <TextView
-                android:id="@+id/tvDetalleCoordenadas"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🌱 Flora -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutFlora"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_flora"
+            tools:content="Robles, hayas..." />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_flora" />
-
-            <TextView
-                android:id="@+id/tvDetalleFlora"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🐾 Fauna -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutFauna"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_fauna"
+            tools:content="Ciervos, jabalíes..." />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_fauna" />
-
-            <TextView
-                android:id="@+id/tvDetalleFauna"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🔍 Qué ver -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutQueVer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_que_ver"
+            tools:content="Mirador del Fitu" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_que_ver" />
-
-            <TextView
-                android:id="@+id/tvDetalleQueVer"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🏔️ Altitud -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutAltitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_altitud"
+            tools:content="1.200 m" />
 
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_altitud" />
-
-            <TextView
-                android:id="@+id/tvDetalleAltitud"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <!-- 🗒️ Observaciones -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutObservaciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="12dp">
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/detalle_observaciones" />
-
-            <TextView
-                android:id="@+id/tvDetalleObservaciones"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            layout="@layout/view_section_texto"
+            tools:text="@string/detalle_observaciones"
+            tools:content="Acceso solo en verano" />
 
         <!-- 🖼️ Galería -->
         <TextView
-            style="@style/TextAppearance.MaterialComponents.Headline6"
+            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/detalle_galeria"
-            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPagerImagenes"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="24dp" />
 
         <!-- 🎥 Vídeo -->
         <LinearLayout
             android:id="@+id/layoutVideo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="32dp">
 
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Headline6"
+                style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/detalle_video"
+                android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
             <WebView
                 android:id="@+id/youtubeWebView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginBottom="32dp"
                 android:background="?attr/colorSurface" />
         </LinearLayout>
 

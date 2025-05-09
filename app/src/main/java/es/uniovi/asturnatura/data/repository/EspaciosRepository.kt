@@ -3,6 +3,7 @@ package es.uniovi.asturnatura.data.repository
 import android.content.Context
 import android.text.Html
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import es.uniovi.asturnatura.data.AppDatabase
 import es.uniovi.asturnatura.model.EspacioNatural
@@ -64,6 +65,14 @@ class EspaciosRepository(context: Context) {
 
     }
 
+
+    val favoritos: LiveData<List<EspacioNaturalEntity>> = dao.obtenerFavoritos()
+
+    suspend fun cambiarFavorito(id: String, esFavorito: Boolean) {
+        dao.actualizarFavorito(id, esFavorito)
+    }
+
+
     suspend fun getEspacioById(id: String): EspacioNaturalEntity? {
         return dao.getById(id)
     }
@@ -74,6 +83,10 @@ class EspaciosRepository(context: Context) {
 
     suspend fun insertarEspacios(lista: List<EspacioNaturalEntity>) {
         dao.insertAll(lista)
+    }
+
+    suspend fun actualizarFavorito(id: String, favorito: Boolean) {
+        dao.actualizarFavorito(id, favorito)
     }
 }
 

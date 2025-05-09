@@ -19,22 +19,33 @@ class EspaciosFragment : Fragment() {
     private lateinit var adapter: EspaciosAdapter
     private lateinit var viewModel: EspaciosViewModel
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_espacios, container, false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerEspacios)
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = EspaciosAdapter { espacio ->
-            abrirDetalle(espacio)
-        }
+        adapter = EspaciosAdapter(
+            espacios = emptyList(),
+            onItemClick = { espacio ->
+                abrirDetalle(espacio)
+            },
+            onToggleFavorito = { espacio ->
+                viewModel.toggleFavorito(espacio)
+            }
+        )
         recycler.adapter = adapter
-
 
         viewModel = ViewModelProvider(requireActivity())[EspaciosViewModel::class.java]
         viewModel.espaciosFiltrados.observe(viewLifecycleOwner) { lista ->
             Log.d("Fragment", "RecyclerView recibido ${lista.size} elementos")
-            adapter.update(lista)
+            adapter.actualizarLista(lista)
         }
 
         viewModel.cargarDatosInteligente(requireContext())
@@ -42,6 +53,7 @@ class EspaciosFragment : Fragment() {
 
     private fun abrirDetalle(espacio: EspacioNaturalEntity) {
         val bundle = Bundle().apply {
+            putString("id", espacio.id)
             putString("nombre", espacio.nombre)
             putString("descripcion", espacio.descripcion)
             putString("ubicacion", espacio.ubicacion)
@@ -62,12 +74,5 @@ class EspaciosFragment : Fragment() {
             R.id.action_nav_espacios_to_detalleEspacioFragment,
             bundle
         )
-
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_espacios, container, false)
 }

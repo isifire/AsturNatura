@@ -21,7 +21,7 @@
     <string name="detalle_video">▶️ Vídeo</string>
     <string name="bienvenido">Bienvenido a AsturNatura</string>
     <string name="modo_noche">Modo noche</string>
-    <string name="modo_idioma">Use English</string>
+    <string name="modo_idioma">Cambiar idioma</string>
     <string name="playa">Playa</string>
     <string name="parque">Parque</string>
     <string name="area_recreativa">Área recreativa</string>
@@ -38,6 +38,11 @@
     <string name="espacios">Espacios</string>
     <string name="mapa">Mapa</string>
     <string name="ajustes">Ajustes</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="no_hay_favoritos">No tienes espacios guardados como favoritos todavía.</string>
+
+
 
 
 

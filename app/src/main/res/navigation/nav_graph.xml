@@ -19,11 +19,20 @@
     <fragment
         android:id="@+id/detalleEspacioFragment"
         android:name="es.uniovi.asturnatura.ui.DetalleEspacioFragment"
-        android:label="Detalle"
-        tools:layout="@layout/fragment_detalle_espacio" >
+        tools:layout="@layout/fragment_detalle_espacio">
         <argument
             android:name="espacioId"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="es.uniovi.asturnatura.ui.FavoritosFragment"
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favoritos" >
+        <action
+            android:id="@+id/action_favoritosFragment_to_detalleEspacioFragment"
+            app:destination="@id/detalleEspacioFragment" />
     </fragment>
 
 

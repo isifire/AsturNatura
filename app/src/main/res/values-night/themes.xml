@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.AsturNatura" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Branding noche -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.AsturNatura" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Marca -->
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
 
-        <!-- Accent -->
-        <item name="colorSecondary">@color/colorSecondary</item>
+        <!-- Secundario -->
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
 
-        <!-- Backgrounds & surfaces noche -->
+        <!-- Fondo y superficies -->
         <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
         <item name="colorOnBackground">@color/colorOnBackground</item>
-        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
 
-        <!-- Status‑bar noche -->
+        <!-- Status Bar -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
 
+
     </style>
+
+    <!-- Botón de Toolbar (hamburguesa o atrás) -->
     <style name="Widget.Toolbar.Button" parent="Widget.AppCompat.Toolbar.Button.Navigation">
-        <item name="android:tint">@android:color/white</item> <!-- o usa otro color si lo prefieres -->
+        <item name="android:tint">@android:color/white</item>
     </style>
+
 
 </resources>

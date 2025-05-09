@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.AsturNatura" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Branding -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.AsturNatura" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Marca -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
 
-        <!-- Accent -->
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <!-- Secundario -->
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
 
-        <!-- Backgrounds & surfaces -->
+        <!-- Fondo y superficies -->
         <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnBackground">@color/black</item>
-        <item name="colorOnSurface">@color/black</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
 
-        <!-- Status bar & Navigation -->
+        <!-- Status Bar -->
         <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
 
+
     </style>
+
+    <!-- Botón de Toolbar (hamburguesa o atrás) -->
     <style name="Widget.Toolbar.Button" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="android:tint">@android:color/white</item>
     </style>
+
+    <style name="Theme.Bubble" parent="">
+        <item name="colorPrimary">@color/bubble_color_primary</item>
+        <item name="colorOnPrimary">@color/bubble_color_on_primary</item>
+        <item name="colorSurface">@color/bubble_surface</item>
+        <item name="colorOnSurface">@color/bubble_on_surface</item>
+    </style>
+
+
+
 </resources>
