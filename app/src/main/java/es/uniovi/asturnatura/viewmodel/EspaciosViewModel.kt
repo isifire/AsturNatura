@@ -12,9 +12,22 @@ import es.uniovi.asturnatura.network.RetrofitInstance
 import es.uniovi.asturnatura.util.JsonImage
 import kotlinx.coroutines.launch
 
-class EspaciosViewModel(application: Application) : AndroidViewModel(application) {
+class EspaciosViewModel : AndroidViewModel {
 
-    private val repository = EspaciosRepository(application)
+    private val repository: EspaciosRepository
+    val favoritos: LiveData<List<EspacioNaturalEntity>>
+
+    // Constructor para la app real
+    constructor(application: Application) : super(application) {
+        this.repository = EspaciosRepository(application)
+        this.favoritos = repository.favoritos
+    }
+
+    // Constructor para test
+    constructor(application: Application, repository: EspaciosRepository) : super(application) {
+        this.repository = repository
+        this.favoritos = repository.favoritos
+    }
 
     private val _espaciosLocales = MutableLiveData<List<EspacioNaturalEntity>>()
     val espaciosLocales: LiveData<List<EspacioNaturalEntity>> get() = _espaciosLocales
@@ -22,8 +35,8 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
     private val _espaciosRemotos = MutableLiveData<List<EspacioNatural>>()
     val espaciosRemotos: LiveData<List<EspacioNatural>> get() = _espaciosRemotos
 
-    private val espaciosOriginales = MutableLiveData<List<EspacioNaturalEntity>>() // conjunto completo
-    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>() // resultado de la búsqueda
+    private val espaciosOriginales = MutableLiveData<List<EspacioNaturalEntity>>()
+    private val allEspacios = MutableLiveData<List<EspacioNaturalEntity>>()
     private val filtroTexto = MutableLiveData<String>()
     private val filtroCategorias = MutableLiveData<Set<String>>(emptySet())
 
@@ -98,7 +111,7 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
                     e.printStackTrace()
                 }
             }
-            Log.d("Debug", "Datos cargados: ${espacios.size}")
+            //Log.d("Debug", "Datos cargados: ${espacios.size}")
             _espaciosLocales.value = espacios
             espaciosOriginales.value = espacios
             allEspacios.value = espacios
@@ -120,7 +133,7 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
                 espaciosOriginales.value ?: repository.getEspaciosNaturales()
             }
             allEspacios.value = resultado
-            Log.d("Search", "Búsqueda ejecutada: ${resultado.size} resultados para '$texto'")
+            //Log.d("Search", "Búsqueda ejecutada: ${resultado.size} resultados para '$texto'")
         }
     }
 
@@ -140,7 +153,7 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             coincideTexto && coincideCategoria
         }
 
-        Log.d("Filtro", "Filtrados: ${resultado.size} elementos con '$texto' y ${categorias.size} filtros")
+        //Log.d("Filtro", "Filtrados: ${resultado.size} elementos con '$texto' y ${categorias.size} filtros")
         espaciosFiltrados_.value = resultado
     }
 
@@ -151,9 +164,9 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         return when (filtro.lowercase()) {
             "playa" -> Regex("playa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             "parque" -> Regex("parque", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "área recreativa" -> Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(nombre) ||
-                    Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(descripcion) ||
-                    Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(tipo)
+            "área recreativa" -> Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+                    || Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(descripcion)
+                    || Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(tipo)
             "picos" -> !espacio.altitud.isNullOrBlank()
             "lago" -> Regex("lago", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             "río" -> Regex("río|rio", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
@@ -161,15 +174,12 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-
     fun getEspacioById(id: String): LiveData<EspacioNaturalEntity?> {
-        return liveData {
-            val found = allEspacios.value?.firstOrNull { it.id == id }
-            emit(found)
-        }
-    }
+        val resultado = MutableLiveData<EspacioNaturalEntity?>()
+        resultado.value = allEspacios.value?.firstOrNull { it.id == id }
+        return resultado
 
-    val favoritos = repository.favoritos
+    }
 
     fun toggleFavorito(espacio: EspacioNaturalEntity) {
         viewModelScope.launch {
@@ -189,4 +199,10 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
             .getBoolean("night_mode", false)
         _usarMapaOscuro.value = nightMode
     }
+
+    fun setEspaciosOriginalesTest(lista: List<EspacioNaturalEntity>) {
+        espaciosOriginales.value = lista
+        allEspacios.value = lista
+    }
+
 }
