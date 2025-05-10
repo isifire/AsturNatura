@@ -144,18 +144,23 @@ class EspaciosViewModel(application: Application) : AndroidViewModel(application
         espaciosFiltrados_.value = resultado
     }
 
-    private fun categoriaMatches(espacio: EspacioNaturalEntity, filtro: String): Boolean {
+    fun categoriaMatches(espacio: EspacioNaturalEntity, filtro: String): Boolean {
         val nombre = espacio.nombre.lowercase()
-        return when (filtro) {
-            "Playa" -> Regex("playa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "Parque" -> Regex("parque", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "Área Recreativa" -> Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "Picos" -> !espacio.altitud.isNullOrBlank()
-            "Lago" -> Regex("lago", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
-            "Río" -> Regex("río|rio", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+        val descripcion = espacio.descripcion.lowercase()
+        val tipo = espacio.tipo.lowercase()
+        return when (filtro.lowercase()) {
+            "playa" -> Regex("playa", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+            "parque" -> Regex("parque", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+            "área recreativa" -> Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(nombre) ||
+                    Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(descripcion) ||
+                    Regex("área\\s+recreativa", RegexOption.IGNORE_CASE).containsMatchIn(tipo)
+            "picos" -> !espacio.altitud.isNullOrBlank()
+            "lago" -> Regex("lago", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
+            "río" -> Regex("río|rio", RegexOption.IGNORE_CASE).containsMatchIn(nombre)
             else -> true
         }
     }
+
 
     fun getEspacioById(id: String): LiveData<EspacioNaturalEntity?> {
         return liveData {
