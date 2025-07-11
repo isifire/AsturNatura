@@ -67,6 +67,3 @@ AsturNatura/
 
 ---
 
-## 🧑‍💻 Autor
-
-Desarrollado por un estudiante de Ingeniería Informática apasionado por la naturaleza, el software limpio y la ciberseguridad.
